@@ -18,15 +18,18 @@
  */
 package org.alfredlibrary.postalservices.internal.tracking;
 
+import javax.inject.Inject;
+
 import junit.framework.Assert;
 
 import org.alfredlibrary.postalservices.tracking.IncorrectTrackingCodeException;
 import org.alfredlibrary.postalservices.tracking.NullOrEmptyTrackingCodeException;
-import org.alfredlibrary.postalservices.tracking.Tracking;
-import org.alfredlibrary.postalservices.tracking.TrackingFactory;
 import org.alfredlibrary.postalservices.tracking.TrackingInfo;
-import org.alfredlibrary.postalservices.tracking.TrackingServices;
+import org.alfredlibrary.postalservices.tracking.annotation.Correios;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
 
 /**
  * Testing Correios Tracking implementation.
@@ -34,32 +37,35 @@ import org.junit.Test;
  * @author Marlon Silva Carvalho
  * @since 2.0.0
  */
-public class CorreiosTrackingTest {
+@RunWith(DemoiselleRunner.class)
+public class CorreiosCDITrackingTest {
+
+	@Inject
+	@Correios
+	private CorreiosTracking tracking;
 
 	@Test(expected = IncorrectTrackingCodeException.class)
 	public void testIncorrectCode() {
-		Tracking tracking = TrackingFactory.getInstance(TrackingServices.CORREIOS);
 		tracking.track("PB4");
 	}
 
 	@Test(expected = NullOrEmptyTrackingCodeException.class)
 	public void testFailWithNullCode() {
-		Tracking tracking = TrackingFactory.getInstance(TrackingServices.CORREIOS);
 		tracking.track(null);
 	}
 
 	@Test(expected = NullOrEmptyTrackingCodeException.class)
 	public void testFailWithEmptyCode() {
-		Tracking tracking = TrackingFactory.getInstance(TrackingServices.CORREIOS);
 		tracking.track("");
 	}
 
 	@Test
 	public void testSuccessCode() {
-		Tracking tracking = TrackingFactory.getInstance(TrackingServices.CORREIOS);
 		TrackingInfo info = tracking.track("RM050887654IN");
-		Assert.assertEquals("AC CONCHAS - CONCHAS/SP", info.getStatuses().get(0).getLocation());
-		Assert.assertEquals("Entregue", info.getStatuses().get(0).getDescription());
+		Assert.assertEquals("AC CONCHAS - CONCHAS/SP", info.getStatuses()
+				.get(0).getLocation());
+		Assert.assertEquals("Entregue", info.getStatuses().get(0)
+				.getDescription());
 	}
 
 }
