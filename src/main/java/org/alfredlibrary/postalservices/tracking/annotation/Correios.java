@@ -21,6 +21,7 @@ package org.alfredlibrary.postalservices.tracking.annotation;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static java.lang.annotation.ElementType.FIELD;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -38,7 +39,7 @@ import org.alfredlibrary.postalservices.tracking.Tracking;
  * @since 2.0.0
  */
 @Documented
-@Target({ TYPE, METHOD })
+@Target({ TYPE, METHOD, FIELD })
 @Retention(RUNTIME)
 @Qualifier
 public @interface Correios {
