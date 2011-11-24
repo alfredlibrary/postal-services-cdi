@@ -45,5 +45,5 @@ import org.alfredlibrary.postalservices.tracking.Tracking;
 public @interface USPS {
 
 	String userID() default "";
-
+	boolean test() default false;
 }

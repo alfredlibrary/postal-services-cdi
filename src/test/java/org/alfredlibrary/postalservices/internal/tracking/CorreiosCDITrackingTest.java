@@ -22,10 +22,10 @@ import javax.inject.Inject;
 
 import junit.framework.Assert;
 
-import org.alfredlibrary.postalservices.tracking.IncorrectTrackingCodeException;
-import org.alfredlibrary.postalservices.tracking.NullOrEmptyTrackingCodeException;
 import org.alfredlibrary.postalservices.tracking.TrackingInfo;
 import org.alfredlibrary.postalservices.tracking.annotation.Correios;
+import org.alfredlibrary.postalservices.tracking.exception.IncorrectTrackingCodeException;
+import org.alfredlibrary.postalservices.tracking.exception.NullOrEmptyTrackingCodeException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

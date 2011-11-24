@@ -25,7 +25,6 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import org.alfredlibrary.postalservices.internal.tracking.CorreiosTracking;
 import org.alfredlibrary.postalservices.internal.tracking.USPSTracking;
 import org.alfredlibrary.postalservices.tracking.TrackingFactory;
-import org.alfredlibrary.postalservices.tracking.TrackingServices;
 import org.alfredlibrary.postalservices.tracking.annotation.Correios;
 import org.alfredlibrary.postalservices.tracking.annotation.USPS;
 
@@ -42,13 +41,13 @@ public class TrackingProducer {
 	public USPSTracking createUSPS(InjectionPoint injectionPoint) {
 		Annotated annotated = injectionPoint.getAnnotated();
 		USPS annotation = (USPS) annotated.getAnnotation(USPS.class);
-		return (USPSTracking) TrackingFactory.getInstance(TrackingServices.USPS, annotation.userID());
+		return (USPSTracking) TrackingFactory.getUSPS( annotation.userID(), annotation.test());
 	}
 
 	@Correios
 	@Produces
 	public CorreiosTracking createCorreios(InjectionPoint injectionPoint) {
-		return (CorreiosTracking) TrackingFactory.getInstance(TrackingServices.CORREIOS);
+		return (CorreiosTracking) TrackingFactory.getCorreios();
 	}
 
 }
